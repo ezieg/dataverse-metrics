@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
     inputs:
       dataverse_host:
-        default: 'demo.dataverse.org'
+        default: 'harvard.dataverse.org'
         description: 'Dataverse server hostname'
         required: TRUE
       period_begin:
