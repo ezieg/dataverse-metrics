@@ -56,7 +56,7 @@ if (file.exists("deposits.rds")) {
   deposits <- deposits_get(dataverse_host)
   saveRDS(deposits, "deposits.rds")
   
-  projects <- content(GET(paste0(dataverse, "/uniquedownloads/monthly")))
+  projects <- content(GET(paste0(dataverse, "/uniquedownloads/monthly?parentAlias=UCS-Data")))
   projects <- bind_rows(projects$data)
   saveRDS(projects, "projects.rds")
 
@@ -64,7 +64,7 @@ if (file.exists("deposits.rds")) {
     mdc <- mdc_get(dataverse_host)
     saveRDS(mdc, "mdc.rds")
   } else {
-    downloads <- content(GET(paste0(dataverse, "/downloads/monthly")))
+    downloads <- content(GET(paste0(dataverse, "/downloads/monthly?parentAlias=UCS-Data")))
     downloads <- bind_rows(downloads$data)
     downloads <- projects %>% group_by(date) %>% summarize(unique=sum(count)) %>%
       full_join(downloads)
