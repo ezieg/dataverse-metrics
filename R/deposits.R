@@ -11,7 +11,7 @@
 #' @examples \dontrun{ deposits_get("demo.dataverse.org") }
 deposits_get <- function(domain, key=NULL) {
   response <- content(GET(paste0('http://', domain,
-                                 "/api/search/?q=*&type=dataset&per_page=1000"),
+                                 "/api/search/?q=*&type=dataset&per_page=1000&parentAlias=UCS-Data"),
                           config=add_headers("X-Dataverse-Key"=key)))
 
   # If there's an error on the server side, return it
@@ -28,7 +28,7 @@ deposits_get <- function(domain, key=NULL) {
     start <- response$data$start + response$data$count_in_response
     message(paste("at", start, "of", response$data$total_count))
     response <- content(GET(paste0('http://', domain,
-                                   "/api/search/?q=*&type=dataset&per_page=1000",
+                                   "/api/search/?q=*&type=dataset&per_page=1000&parentAlias=UCS-Data",
                                    "&start=", start),
                             config=add_headers("X-Dataverse-Key"=key)))
     deposits <- tibble(deposit=response$data$items) |> unnest_wider(deposit) |>
