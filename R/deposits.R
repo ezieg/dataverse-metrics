@@ -46,5 +46,6 @@ deposits_get <- function(domain, key=NULL) {
   deposits$name <- stringr::str_trunc(deposits$name, 75, "right")
   deposits$versionState <- recode(deposits$versionState, RELEASED="Published", DRAFT="Unpublished")
 
+  cat(content(deposits, 'text'), file = "deposits.csv") #raw?
   return(deposits)
 }
